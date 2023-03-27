@@ -1,0 +1,414 @@
+function setup() {
+  createCanvas(600, 600);
+  createDropdown();
+  createAgeDropdown();
+}
+
+function draw() {
+  background(225);
+  startingAngle = 0;
+  anglePerDataPoint = 360 / Object.values(dataToUse).reduce((a, b) => a + b, 0);
+  push();
+  translate(width/2, height/2);
+  for (let key in dataToUse) {
+    let value = dataToUse[key];
+    let endAngle = startingAngle + value * anglePerDataPoint;
+    let isHovered = false;
+    if (dist(mouseX - width/2, mouseY - height/2, 0, 0) < width/4) {
+      if (mouseX > width/2) {
+        if (startingAngle <= mouseY && mouseY <= endAngle) {
+          isHovered = true;
+        }
+      } else {
+
+   }
+                      }
+                      let startingAngle = 0;
+                      let anglePerDataPoint = 360 / Object.values(dataToUse).reduce((a, b) => a + b, 0);
+                      push();
+                      translate(width / 2, height / 2);
+                      for (let i = 0; i < Object.keys(dataToUse).length; i++) {
+                        let key = Object.keys(dataToUse)[i];
+                        let value = dataToUse[key];
+                        let endAngle = startingAngle + value * anglePerDataPoint;
+                        let isHovered = false;
+                        if (dist(mouseX - width / 2, mouseY - height / 2, 0, 0) < width / 4) {}
+                          if (mouseX > width / 2) {
+                            if (startingAngle <= mouseY && mouseY <= endAngle) {
+                              isHovered = true;
+
+                          } else {
+ 
+// Handle mouse press event to update data to use
+function mousePressed() {
+  if (dist(mouseX - width/2, mouseY - height/2, 0, 0) < width/4) {
+    if (selectedData === "age") {
+      let selectedAge = ageDropdown.value();
+      dataToUse = {};
+      for (let i = 0; i < data.getRowCount(); i++) {
+        let age = data.getString(i, "age");
+        if (age === selectedAge) {
+          let deathYear = data.getString(i, "death_year");
+          if (!dataToUse[deathYear]) {
+            dataToUse[deathYear] = 0;
+          }
+          dataToUse[deathYear]++;
+        }
+      }
+    } else {
+      dataToUse = {};
+      for (let i = 0; i < data.getRowCount(); i++) {
+        let value = data.getString(i, selectedData);
+        if (!dataToUse[value]) {
+          dataToUse[value] = 0;
+        }
+        dataToUse[value]++;
+      }
+    }
+  }
+}
+                            
+                            
+
+//draw legend
+let legendX = width - 150
+let legendY = height - 100;
+let legendSize = 15;
+let legendSpacing = 20;
+
+for (let i = 0; i < Object.keys(dataToUse.length i++) {
+  let key = Object.keys(dataToUse) [i];
+  let colorIndex =Math.floor(parseInt(key) / 15) % color.length;
+  let segmentColor = colrs[colrIndex];
+  fill(SegmentColor);
+  Reflect(legendX, legendY + i * legendSpacing,legendSize, legendSize);
+  fill(0);
+  textSize(12);
+  text(key, legendX + legendSize + 10,legendY + i * legendSpacing + legendSize);
+
+}
+
+   }
+                        
+                        
+ } else {
+   
+   function mouseMoved() {
+  let startingAngle = 0;
+  let anglePerDataPoint = 360 / Object.values(dataToUse).reduce((a, b) => a + b, 0);
+  for (let i = 0; i < Object.keys(dataToUse).length; i++) {
+    let key = Object.keys(dataToUse)[i];
+    let value = dataToUse[key];
+    let endAngle = startingAngle + value * anglePerDataPoint;
+    let isHovered = false;
+    if (dist(mouseX - width / 2, mouseY - height / 2, 0, 0) < width / 4) {
+      if (mouseX > width / 2) {
+        if (startingAngle <= mouseY && mouseY <= endAngle) {
+          isHovered = true;
+        }
+      } else {
+        if (endAngle <= mouseY && mouseY <= startingAngle) {
+          isHovered = true;
+        }
+      }
+    }
+    let colorIndex = Math.floor(parseInt(key) / 15) % colors.length;
+    let segmentColor = colors[colorIndex];
+    fill(isHovered ? "purple" : segmentColor);
+    arc(0, 0, width / 2, height / 2, startingAngle, endAngle);
+    if (isHovered) {
+      fill(255);
+      textSize(12);
+      text(key, 0, 0);
+    }
+    startingAngle = endAngle;
+  }
+}
+                             }
+                                                  }
+                                                  let startingAngle = 0;
+                                                  let anglePerDataPoint = 360 / Object.values(dataToUse).reduce((a, b) => a + b, 0);
+                                                  push();
+                                                  translate(width / 2, height / 2);
+                                                  for (let i = 0; i < Object.keys(dataToUse).length; i++) {
+                                                    let key = Object.keys(dataToUse)[i];
+                                                    let value = dataToUse[key];
+                                                    let endAngle = startingAngle + value * anglePerDataPoint;
+                                                    let isHovered = false;
+                                                    if (dist(mouseX - width / 2, mouseY - height / 2, 0, 0) < width / 4) {
+                                                      if (mouseX > width / 2) {
+                                                        if (startingAngle <= mouseY && mouseY <= endAngle) {
+                                                          isHovered = true;
+                                                        }
+                                                      } else {
+                                                      
+                                                    }
+                                                    startingAngle = endAngle;
+                                                  }
+                                                  pop();
+                                                }
+                                                
+                                                function createDropdown() {
+                                                  dropdown = createSelect();
+                                                  dropdown.position(legendX, legendY);
+                                                  dropdown.option("deaths_per_year");
+                                                  dropdown.option("age");
+                                                  dropdown.option("marital_status");
+                                                  dropdown.changed(() => {
+                                                    selectedData = dropdown.value();
+                                                  });
+                                                }
+                                                
+function createAgeDropdown() {
+  ageDropdown = createSelect();
+  ageDropdown.position(legendX, legendY + 20);
+  for (let i = 0; i <= 113; i++) {
+    ageDropdown.option(i);
+  }
+  ageDropdown.changed(() => {
+    selectedData = "age";
+    let selectedAge = ageDropdown.value();
+    dataToUse = {};
+    for (let i = 0; i < data.getRowCount(); i++) {
+      let age = data.getString(i, "age");
+      if (age === selectedAge) {
+        let deathYear = data.getString(i, "death_year");
+        if (!dataToUse[deathYear]) {
+          dataToUse[deathYear] = 0;
+        }
+        dataToUse[deathYear]++;
+      }
+    }
+  });
+}                                                 
+                                                }
+                                                
+                                                  startingAngle = endAngle;
+                                                }
+                                                pop();
+                                              }
+                            
+                            
+                            
+                            
+                            
+                                          }
+                                        }
+                                        let startingAngle = 0;
+                                        let anglePerDataPoint = 360 / Object.values(dataToUse).reduce((a, b) => a + b, 0);
+                                        push();
+                                        translate(width / 2, height / 2);
+                                        for (let i = 0; i < Object.keys(dataToUse).length; i++) {
+                                          let key = Object.keys(dataToUse)[i];
+                                          let value = dataToUse[key];
+                                          let endAngle = startingAngle + value * anglePerDataPoint;
+                                          let isHovered = false;
+                                          if (dist(mouseX - width / 2, mouseY - height / 2, 0, 0) < width / 4) {
+                                            if (mouseX > width / 2) {
+                                              if (startingAngle <= mouseY && mouseY <= endAngle) {
+                                                isHovered = true;
+                                              }
+                                            } else {
+                                              if (endAngle <= mouseY && mouseY <= startingAngle) {
+                                                isHovered = true;
+                                              }
+                                            }
+                                          }
+                                          let colorIndex = Math.floor(parseInt(key) / 15) % colors.length;
+                                          let segmentColor = colors[colorIndex];
+                                          fill(isHovered ? "purple" : segmentColor);
+                                          arc(0, 0, width / 2, height / 2, startingAngle, endAngle);
+                                          if (isHovered) {
+                                            fill(255);
+                                            textSize(12);
+                                            text(key, 0, 0);
+                                          }
+                                          startingAngle = endAngle;
+                                        }
+                                        pop();
+                                      }
+                                      
+                                      function createDropdown() {
+                                        dropdown = createSelect();
+                                        dropdown.position(legendX, legendY);
+                                        dropdown.option("deaths_per_year");
+                                        dropdown.option("age");
+                                        dropdown.option("marital_status");
+                                        dropdown.changed(() => {
+                                          selectedData = dropdown.value();
+                                        });
+                                      }
+                                      
+                                      function createAgeDropdown() {
+                                        ageDropdown = createSelect();
+                                        ageDropdown.position(legendX, legendY + 20);
+                                        for (let i = 0; i <= 113; i++) {
+                                          ageDropdown.option(i);
+                                        }
+                                        ageDropdown.changed(() => {
+                                          selectedData = "age";
+                                          let selectedAge = ageDropdown.value();
+                                          dataToUse = {};
+                                          for (let i = 0; i < data.getRowCount(); i++) {
+                                            let age = data.getString(i, "age");
+                                            if (age === selectedAge) {
+                                              let deathYear = data.getString(i, "death_year");
+                                              if (!dataToUse[deathYear]) {
+                                                dataToUse[deathYear] = 0;
+                                              }
+                                              dataToUse[deathYear]++;
+                                            }
+                                          }
+                                        });
+                                      }
+                                      
+                                        startingAngle = endAngle;
+                                      }
+                                      pop();
+                                    }
+                            
+                                    if (endAngle <= mouseY && mouseY <= startingAngle) {
+                                      isHovered = true;
+                                    }
+                                  }
+
+                        }
+                        startingAngle = endAngle;
+                      }
+                      pop();
+                    }
+                    
+                    function createDropdown() {
+                      dropdown = createSelect();
+                      dropdown.position(legendX, legendY);
+                      dropdown.option("deaths_per_year");
+                      dropdown.option("age");
+                      dropdown.option("marital_status");
+                      dropdown.changed(() => {
+                        selectedData = dropdown.value();
+                      });
+                    }
+                    
+                    function createAgeDropdown() {
+                      ageDropdown = createSelect();
+                      ageDropdown.position(legendX, legendY + 20);
+                      for (let i = 0; i <= 113; i++) {
+                        ageDropdown.option(i);
+                      }
+                      ageDropdown.changed(() => {
+                        selectedData = "age";
+                        let selectedAge = ageDropdown.value();
+                        dataToUse = {};
+                        for (let i = 0; i < data.getRowCount(); i++) {
+                          let age = data.getString(i, "age");
+                          if (age === selectedAge) {
+                            let deathYear = data.getString(i, "death_year");
+                            if (!dataToUse[deathYear]) {
+                              dataToUse[deathYear] = 0;
+                            }
+                            dataToUse[deathYear]++;
+                          }
+                        }
+                      });
+                    }
+                    
+                      startingAngle = endAngle;
+                    }
+                    pop();
+                  }
+
+
+
+
+
+              }
+            }
+            let startingAngle = 0;
+            let anglePerDataPoint = 360 / Object.values(dataToUse).reduce((a, b) => a + b, 0);
+            push();
+            translate(width / 2, height / 2);
+            for (let i = 0; i < Object.keys(dataToUse).length; i++) {
+              let key = Object.keys(dataToUse)[i];
+              let value = dataToUse[key];
+              let endAngle = startingAngle + value * anglePerDataPoint;
+              let isHovered = false;
+              if (dist(mouseX - width / 2, mouseY - height / 2, 0, 0) < width / 4) {
+                if (mouseX > width / 2) {
+                  if (startingAngle <= mouseY && mouseY <= endAngle) {
+                    isHovered = true;
+                  }
+                } else {
+                  if (endAngle <= mouseY && mouseY <= startingAngle) {
+                    isHovered = true;
+                  }
+                }
+              }
+              let colorIndex = Math.floor(parseInt(key) / 15) % colors.length;
+              let segmentColor = colors[colorIndex];
+              fill(isHovered ? "purple" : segmentColor);
+              arc(0, 0, width / 2, height / 2, startingAngle, endAngle);
+              if (isHovered) {
+                fill(255);
+                textSize(12);
+                text(key, 0, 0);
+              }
+              startingAngle = endAngle;
+            }
+            pop();
+          }
+          
+          function createDropdown() {
+            dropdown = createSelect();
+            dropdown.position(legendX, legendY);
+            dropdown.option("deaths_per_year");
+            dropdown.option("age");
+            dropdown.option("marital_status");
+            dropdown.changed(() => {
+              selectedData = dropdown.value();
+            });
+          }
+          
+          function createAgeDropdown() {
+            ageDropdown = createSelect();
+            ageDropdown.position(legendX, legendY + 20);
+            for (let i = 0; i <= 113; i++) {
+              ageDropdown.option(i);
+            }
+            ageDropdown.changed(() => {
+              selectedData = "age";
+              let selectedAge = ageDropdown.value();
+              dataToUse = {};
+              for (let i = 0; i < data.getRowCount(); i++) {
+                let age = data.getString(i, "age");
+                if (age === selectedAge) {
+                  let deathYear = data.getString(i, "death_year");
+                  if (!dataToUse[deathYear]) {
+                    dataToUse[deathYear] = 0;
+                  }
+                  dataToUse[deathYear]++;
+                }
+              }
+            });
+          }
+          
+            startingAngle = endAngle;
+          }
+          pop();
+        }
+
+        if (endAngle <= mouseY && mouseY <= startingAngle) {
+          isHovered = true;
+        }
+      }
+    }
+    fill(isHovered ? "purple" : "gray");
+    arc(0, 0, width/2, height/2, startingAngle, endAngle);
+    if (isHovered) {
+      fill(255);
+      textSize(12);
+      text(key, 0, 0);
+    }
+    startingAngle = endAngle;
+  }
+  pop();
+}
